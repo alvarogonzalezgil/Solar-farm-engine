@@ -1,0 +1,38 @@
+[project]
+name = "fdplan-solar-engine"
+version = "0.1.0"
+description = "Location-based solar farm sizing engine for FDPlan (PySAM PVWatts)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "NREL-PySAM>=5.0.0",
+    "pydantic>=2.0",
+    "typer>=0.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+]
+worker = [
+    "requests>=2.28",
+]
+
+[project.scripts]
+fdplan-solar = "fdplan_solar.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

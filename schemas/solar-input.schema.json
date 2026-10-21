@@ -1,0 +1,358 @@
+{
+  "$defs": {
+    "CostInput": {
+      "properties": {
+        "pv_cost_usd_per_w_dc": {
+          "default": 0.85,
+          "exclusiveMinimum": 0,
+          "title": "Pv Cost Usd Per W Dc",
+          "type": "number"
+        },
+        "storage_cost_usd_per_kwh": {
+          "default": 200.0,
+          "exclusiveMinimum": 0,
+          "title": "Storage Cost Usd Per Kwh",
+          "type": "number"
+        },
+        "bos_and_install_pct": {
+          "default": 0.0,
+          "description": "Extra CAPEX as fraction of PV + storage subtotal.",
+          "minimum": 0,
+          "title": "Bos And Install Pct",
+          "type": "number"
+        },
+        "land_m2_per_mw_dc": {
+          "default": 20000.0,
+          "exclusiveMinimum": 0,
+          "title": "Land M2 Per Mw Dc",
+          "type": "number"
+        },
+        "project_lifetime_years": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Project Lifetime Years"
+        },
+        "annual_om_usd_per_kw_dc": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Annual Om Usd Per Kw Dc"
+        }
+      },
+      "title": "CostInput",
+      "type": "object"
+    },
+    "DemandInput": {
+      "properties": {
+        "daily_energy_kwh": {
+          "exclusiveMinimum": 0,
+          "title": "Daily Energy Kwh",
+          "type": "number"
+        },
+        "peak_power_kw": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Peak Power Kw"
+        }
+      },
+      "required": [
+        "daily_energy_kwh"
+      ],
+      "title": "DemandInput",
+      "type": "object"
+    },
+    "PvTechnologyInput": {
+      "properties": {
+        "dc_ac_ratio": {
+          "default": 1.2,
+          "exclusiveMinimum": 0,
+          "title": "Dc Ac Ratio",
+          "type": "number"
+        },
+        "array_type": {
+          "default": 0,
+          "description": "PVWatts array_type: 0=fixed open rack, 1=roof, 2=1-axis, etc.",
+          "maximum": 4,
+          "minimum": 0,
+          "title": "Array Type",
+          "type": "integer"
+        },
+        "tilt_deg": {
+          "anyOf": [
+            {
+              "maximum": 90,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Panel tilt; default \u2248 |latitude| when omitted.",
+          "title": "Tilt Deg"
+        },
+        "azimuth_deg": {
+          "anyOf": [
+            {
+              "maximum": 360,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Azimuth from north clockwise; default 180\u00b0 N hemisphere, 0\u00b0 S.",
+          "title": "Azimuth Deg"
+        },
+        "system_losses_percent": {
+          "default": 14.0,
+          "maximum": 99,
+          "minimum": 0,
+          "title": "System Losses Percent",
+          "type": "number"
+        },
+        "module_type": {
+          "default": 0,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Module Type",
+          "type": "integer"
+        },
+        "gcr": {
+          "default": 0.4,
+          "maximum": 0.99,
+          "minimum": 0,
+          "title": "Gcr",
+          "type": "number"
+        }
+      },
+      "title": "PvTechnologyInput",
+      "type": "object"
+    },
+    "SiteInput": {
+      "properties": {
+        "latitude": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "timezone_offset_hours": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "UTC offset in hours (e.g. 4 for Gulf). Inferred from longitude if omitted.",
+          "title": "Timezone Offset Hours"
+        },
+        "elevation_m": {
+          "default": 0.0,
+          "maximum": 9000,
+          "minimum": -500,
+          "title": "Elevation M",
+          "type": "number"
+        },
+        "country": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Country"
+        },
+        "oil_field_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Oil Field Name"
+        }
+      },
+      "required": [
+        "latitude",
+        "longitude"
+      ],
+      "title": "SiteInput",
+      "type": "object"
+    },
+    "SizingMode": {
+      "enum": [
+        "meet_load",
+        "fixed_capacity"
+      ],
+      "title": "SizingMode",
+      "type": "string"
+    },
+    "StorageInput": {
+      "properties": {
+        "storage_hours": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Energy storage duration at average load (kWh/day / 24).",
+          "title": "Storage Hours"
+        },
+        "storage_fraction_of_daily_load": {
+          "default": 0.5,
+          "description": "Usable storage as fraction of daily load when storage_hours not set.",
+          "exclusiveMinimum": 0,
+          "maximum": 1.5,
+          "title": "Storage Fraction Of Daily Load",
+          "type": "number"
+        },
+        "round_trip_efficiency": {
+          "default": 0.9,
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Round Trip Efficiency",
+          "type": "number"
+        },
+        "depth_of_discharge": {
+          "default": 0.9,
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Depth Of Discharge",
+          "type": "number"
+        }
+      },
+      "title": "StorageInput",
+      "type": "object"
+    },
+    "WeatherMode": {
+      "enum": [
+        "clear_sky",
+        "capacity_factor"
+      ],
+      "title": "WeatherMode",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "site": {
+      "$ref": "#/$defs/SiteInput"
+    },
+    "demand": {
+      "$ref": "#/$defs/DemandInput"
+    },
+    "pv": {
+      "$ref": "#/$defs/PvTechnologyInput"
+    },
+    "weather_mode": {
+      "$ref": "#/$defs/WeatherMode",
+      "default": "clear_sky"
+    },
+    "sunny_day_capacity_factor": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Only for weather_mode=capacity_factor.",
+      "title": "Sunny Day Capacity Factor"
+    },
+    "sizing_mode": {
+      "$ref": "#/$defs/SizingMode",
+      "default": "meet_load"
+    },
+    "fixed_dc_capacity_kw": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Fixed Dc Capacity Kw"
+    },
+    "design_margin": {
+      "default": 0.1,
+      "description": "Fractional oversize on PV for meet_load mode.",
+      "maximum": 0.5,
+      "minimum": 0,
+      "title": "Design Margin",
+      "type": "number"
+    },
+    "storage": {
+      "$ref": "#/$defs/StorageInput"
+    },
+    "costs": {
+      "$ref": "#/$defs/CostInput"
+    },
+    "reference_year": {
+      "default": 2023,
+      "description": "Non-leap year for 8760-hour weather (leap years have 8784 hours).",
+      "maximum": 2100,
+      "minimum": 2000,
+      "title": "Reference Year",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "site",
+    "demand"
+  ],
+  "title": "SizingInput",
+  "type": "object"
+}

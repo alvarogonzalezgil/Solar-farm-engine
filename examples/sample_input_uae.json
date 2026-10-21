@@ -1,0 +1,35 @@
+{
+  "site": {
+    "latitude": 24.4539,
+    "longitude": 54.3773,
+    "timezone_offset_hours": 4,
+    "elevation_m": 5,
+    "country": "UAE",
+    "oil_field_name": "Example offshore asset"
+  },
+  "demand": {
+    "daily_energy_kwh": 50000
+  },
+  "pv": {
+    "dc_ac_ratio": 1.25,
+    "array_type": 0,
+    "system_losses_percent": 14
+  },
+  "weather_mode": "clear_sky",
+  "sizing_mode": "meet_load",
+  "design_margin": 0.1,
+  "storage": {
+    "storage_fraction_of_daily_load": 0.45,
+    "round_trip_efficiency": 0.9,
+    "depth_of_discharge": 0.9
+  },
+  "costs": {
+    "pv_cost_usd_per_w_dc": 0.85,
+    "storage_cost_usd_per_kwh": 200,
+    "bos_and_install_pct": 0.08,
+    "land_m2_per_mw_dc": 20000,
+    "project_lifetime_years": 25,
+    "annual_om_usd_per_kw_dc": 12
+  },
+  "reference_year": 2023
+}

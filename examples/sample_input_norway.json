@@ -1,0 +1,29 @@
+{
+  "site": {
+    "latitude": 60.3913,
+    "longitude": 5.3221,
+    "timezone_offset_hours": 1,
+    "elevation_m": 50,
+    "country": "Norway",
+    "oil_field_name": "High-latitude comparison site"
+  },
+  "demand": {
+    "daily_energy_kwh": 50000
+  },
+  "pv": {
+    "dc_ac_ratio": 1.2,
+    "array_type": 0,
+    "system_losses_percent": 14
+  },
+  "weather_mode": "clear_sky",
+  "sizing_mode": "meet_load",
+  "design_margin": 0.1,
+  "storage": {
+    "storage_hours": 12
+  },
+  "costs": {
+    "pv_cost_usd_per_w_dc": 0.95,
+    "storage_cost_usd_per_kwh": 220
+  },
+  "reference_year": 2023
+}

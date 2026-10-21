@@ -1,0 +1,233 @@
+{
+  "$defs": {
+    "AssumptionsRecord": {
+      "properties": {
+        "weather_mode": {
+          "title": "Weather Mode",
+          "type": "string"
+        },
+        "sizing_mode": {
+          "title": "Sizing Mode",
+          "type": "string"
+        },
+        "design_margin": {
+          "title": "Design Margin",
+          "type": "number"
+        },
+        "system_losses_percent": {
+          "title": "System Losses Percent",
+          "type": "number"
+        },
+        "dc_ac_ratio": {
+          "title": "Dc Ac Ratio",
+          "type": "number"
+        },
+        "pv_cost_usd_per_w_dc": {
+          "title": "Pv Cost Usd Per W Dc",
+          "type": "number"
+        },
+        "storage_cost_usd_per_kwh": {
+          "title": "Storage Cost Usd Per Kwh",
+          "type": "number"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "weather_mode",
+        "sizing_mode",
+        "design_margin",
+        "system_losses_percent",
+        "dc_ac_ratio",
+        "pv_cost_usd_per_w_dc",
+        "storage_cost_usd_per_kwh"
+      ],
+      "title": "AssumptionsRecord",
+      "type": "object"
+    },
+    "CapexBreakdown": {
+      "properties": {
+        "pv_usd": {
+          "title": "Pv Usd",
+          "type": "number"
+        },
+        "storage_usd": {
+          "title": "Storage Usd",
+          "type": "number"
+        },
+        "bos_usd": {
+          "title": "Bos Usd",
+          "type": "number"
+        },
+        "total_usd": {
+          "title": "Total Usd",
+          "type": "number"
+        }
+      },
+      "required": [
+        "pv_usd",
+        "storage_usd",
+        "bos_usd",
+        "total_usd"
+      ],
+      "title": "CapexBreakdown",
+      "type": "object"
+    },
+    "SiteSummary": {
+      "properties": {
+        "latitude": {
+          "title": "Latitude",
+          "type": "number"
+        },
+        "longitude": {
+          "title": "Longitude",
+          "type": "number"
+        },
+        "timezone_offset_hours": {
+          "title": "Timezone Offset Hours",
+          "type": "number"
+        },
+        "elevation_m": {
+          "title": "Elevation M",
+          "type": "number"
+        },
+        "tilt_deg": {
+          "title": "Tilt Deg",
+          "type": "number"
+        },
+        "azimuth_deg": {
+          "title": "Azimuth Deg",
+          "type": "number"
+        },
+        "peak_sun_hours_equivalent": {
+          "title": "Peak Sun Hours Equivalent",
+          "type": "number"
+        },
+        "daily_generation_kwh_per_kwdc": {
+          "title": "Daily Generation Kwh Per Kwdc",
+          "type": "number"
+        },
+        "annual_generation_kwh_per_kwdc": {
+          "title": "Annual Generation Kwh Per Kwdc",
+          "type": "number"
+        },
+        "timezone_inferred": {
+          "default": false,
+          "title": "Timezone Inferred",
+          "type": "boolean"
+        },
+        "elevation_defaulted": {
+          "default": false,
+          "title": "Elevation Defaulted",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "latitude",
+        "longitude",
+        "timezone_offset_hours",
+        "elevation_m",
+        "tilt_deg",
+        "azimuth_deg",
+        "peak_sun_hours_equivalent",
+        "daily_generation_kwh_per_kwdc",
+        "annual_generation_kwh_per_kwdc"
+      ],
+      "title": "SiteSummary",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "pv_dc_capacity_kw": {
+      "title": "Pv Dc Capacity Kw",
+      "type": "number"
+    },
+    "pv_ac_capacity_kw": {
+      "title": "Pv Ac Capacity Kw",
+      "type": "number"
+    },
+    "storage_capacity_kwh": {
+      "title": "Storage Capacity Kwh",
+      "type": "number"
+    },
+    "storage_nameplate_kwh": {
+      "title": "Storage Nameplate Kwh",
+      "type": "number"
+    },
+    "land_area_m2": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Land Area M2"
+    },
+    "daily_generation_kwh": {
+      "title": "Daily Generation Kwh",
+      "type": "number"
+    },
+    "annual_energy_kwh": {
+      "title": "Annual Energy Kwh",
+      "type": "number"
+    },
+    "capex": {
+      "$ref": "#/$defs/CapexBreakdown"
+    },
+    "lcoe_usd_per_kwh": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Lcoe Usd Per Kwh"
+    },
+    "site_summary": {
+      "$ref": "#/$defs/SiteSummary"
+    },
+    "assumptions": {
+      "$ref": "#/$defs/AssumptionsRecord"
+    },
+    "hourly_ac_kw_per_kwdc": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "8760 normalized AC power (kW per kW DC) when include_hourly_profile=true.",
+      "title": "Hourly Ac Kw Per Kwdc"
+    }
+  },
+  "required": [
+    "pv_dc_capacity_kw",
+    "pv_ac_capacity_kw",
+    "storage_capacity_kwh",
+    "storage_nameplate_kwh",
+    "daily_generation_kwh",
+    "annual_energy_kwh",
+    "capex",
+    "site_summary",
+    "assumptions"
+  ],
+  "title": "SizingOutput",
+  "type": "object"
+}
